@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Nginx | Hexo</title>
+  <title>Nginx初识 | Hexo</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -175,15 +175,29 @@
       </time>
     
 </span>
-                <h1>Nginx</h1>
+                <h1>Nginx初识</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。国内使用Nginx的公司有：百度、京东、新浪、网易、腾讯、淘宝等。</p>
-<h3 id="Nginx的功能"><a href="#Nginx的功能" class="headerlink" title="Nginx的功能"></a>Nginx的功能</h3><p>HTTP基础功能：<br>1、处理静态文件，索引文件以及自动索引；<br>2、反向代理加速(无缓存)，简单的负载均衡和容错；<br>3、FastCGI，简单的负载均衡和容错；<br>4、模块化的结构。过滤器包括gzipping, byte ranges, chunked responses, 以及 SSI-filter 。在SSI过滤器中，到同一个 proxy 或者 FastCGI 的多个子请求并发处理；<br>5、SSL 和 TLS SNI 支持；</p>
-<p>IMAP/POP3代理功能：<br>1、使用外部 HTTP 认证服务器重定向用户到 IMAP/POP3 后端；<br>2、使用外部 HTTP 认证服务器认证用户后连接重定向到内部的 SMTP 后端；<br>3、认证方法：<br>    POP3: POP3 USER/PASS, APOP, AUTH LOGIN PLAIN CRAM-MD5;<br>    IMAP: IMAP LOGIN;<br>    SMTP: AUTH LOGIN PLAIN CRAM-MD5;<br>4、SSL 支持；<br>5、在 IMAP 和 POP3 模式下的 STARTTLS 和 STLS 支持；</p>
-<pre><code>Nginx可支持的操作系统包括：Linux,MacOS,FreeBSD,Solaris等。
-</code></pre><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>可以使用以下命令安装Nginx：<br>Ubuntu系统安装编译环境：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ apt-get install build-essential</div><div class="line">$ apt-get install libtool</div></pre></td></tr></table></figure></p>
+<h3 id="Nginx的功能"><a href="#Nginx的功能" class="headerlink" title="Nginx的功能"></a>Nginx的功能</h3><pre><code>HTTP基础功能：
+1、处理静态文件，索引文件以及自动索引；
+2、反向代理加速(无缓存)，简单的负载均衡和容错；
+3、FastCGI，简单的负载均衡和容错；
+4、模块化的结构。过滤器包括gzipping, byte ranges, chunked responses, 以及 SSI-filter 。在SSI过滤器中，到同一个 proxy 或者 FastCGI 的多个子请求并发处理；
+5、SSL 和 TLS SNI 支持；
+
+IMAP/POP3代理功能：
+1、使用外部 HTTP 认证服务器重定向用户到 IMAP/POP3 后端；
+2、使用外部 HTTP 认证服务器认证用户后连接重定向到内部的 SMTP 后端；
+3、认证方法：
+    POP3: POP3 USER/PASS, APOP, AUTH LOGIN PLAIN CRAM-MD5;
+    IMAP: IMAP LOGIN;
+    SMTP: AUTH LOGIN PLAIN CRAM-MD5;
+4、SSL 支持；
+5、在 IMAP 和 POP3 模式下的 STARTTLS 和 STLS 支持；
+</code></pre><p>Nginx可支持的操作系统包括：Linux,MacOS,FreeBSD,Solaris等。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>可以使用以下命令安装Nginx：<br>Ubuntu系统安装编译环境：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ apt-get install build-essential</div><div class="line">$ apt-get install libtool</div></pre></td></tr></table></figure></p>
 <p>CentOS上安装编译环境make和g++：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ yum -y install gcc automake autoconf libtool make</div><div class="line">$ yum install gcc gcc-c++</div></pre></td></tr></table></figure></p>
 <p>正式安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> dir</div><div class="line">$ wget http://nginx.org/download/nginx-1.4.2.tar.gz</div><div class="line">$ tar -zxvf tar -zxvf nginx-1.4.2.tar.gz</div><div class="line">$ <span class="built_in">cd</span> nginx-1.4.2</div><div class="line">$./configure --sbin-path=/usr/<span class="built_in">local</span>/nginx/nginx \</div><div class="line">--conf-path=/usr/<span class="built_in">local</span>/nginx/nginx.conf \</div><div class="line">--pid-path=/usr/<span class="built_in">local</span>/nginx/nginx.pid \</div><div class="line">--with-http_ssl_module \</div><div class="line">--with-pcre=/opt/app/openet/oetal1/chenhe/pcre-8.37 \</div><div class="line">--with-zlib=/opt/app/openet/oetal1/chenhe/zlib-1.2.8 \</div><div class="line">--with-openssl=/opt/app/openet/oetal1/chenhe/openssl-1.0.1t</div><div class="line">$ make</div><div class="line">$ make install</div></pre></td></tr></table></figure></p>
 <p>–with-pcre=/usr/src/pcre-8.34 指的是pcre-8.34 的源码路径。<br>–with-zlib=/usr/src/zlib-1.2.7 指的是zlib-1.2.7 的源码路径。<br>如果没有下载pcre和zlib，还要先下载pcre和zlib的源码并编译</p>
